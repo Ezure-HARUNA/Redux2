@@ -1,4 +1,5 @@
 import React from 'react'
+import Action from '../actions'
 
 const Event = ({ dispatch, event }) => {
   const id = event.id
