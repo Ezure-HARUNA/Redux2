@@ -1,21 +1,25 @@
 import React from 'react'
+import Event from './Event'
 
-const Event = ({ dispatch, event }) => {
-  const id = event.id
-  const title = event.title
-  const handleClickDeleteButton = () => {
-    const result = window.confirm(`タスク「${title}」を本当に削除していいですか？`)
-    if(result) dispatch({ type: 'DELETE_EVENT', id })
-  }
-
+const Events = ({state, dispatch}) => {
   return (
-    <tr>
-      <td>{id}</td>
-      <td>{event.title}</td>
-      <td>{event.body}</td>
-      <td><button type="button" className="btn btn-danger" onClick={handleClickDeleteButton}>削除</button></td>
-    </tr>
+    <>
+      <h4>イベント一覧</h4>
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>タイトル</th>
+            <th>ボディー</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          { state.map((event, index) => (<Event key={index} event={event} dispatch={dispatch} />))}
+        </tbody>
+      </table>
+    </>
   )
 }
 
-export default Event
+export default Events
