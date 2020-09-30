@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import  { CREATE_EVENT, DELETE_ALL_EVENTS} from '../actions';
+import AppContext from '../contexts/AppContext';
 
-const EventForm = (props) => {
+const EventForm = () => {
+  const { state, dispatch } = useContext(AppContext);
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
   const addEvent = e => {
     e.preventDefault()
 
-    props.dispatch({
+    dispatch({
      type: 'CREATE_EVENT',
      title,
      body
@@ -21,7 +23,7 @@ const EventForm = (props) => {
   const deleteAllEvents = e => {
     e.preventDefault()
     const result = window.confirm('全てのイベントを本当に削除してもいいですか？')
-    if (result) props.dispatch({type: 'DELETE_ALL_EVENTS'})
+    if (result) dispatch({type: 'DELETE_ALL_EVENTS'})
   }
 
   const unCreatable = title === '' || body === ''
@@ -40,7 +42,7 @@ const EventForm = (props) => {
           </div>
 
           <button className="btn btn-primary" onClick={addEvent} disabled={unCreatable}>イベントを作成する</button>
-          <button className="btn btn-danger" onClick={deleteAllEvents} disabled={props.state.length === 0 }>全てのイベントを削除する</button>
+          <button className="btn btn-danger" onClick={deleteAllEvents} disabled={state.length === 0 }>全てのイベントを削除する</button>
         </form>
       </React.Fragment>
     )
